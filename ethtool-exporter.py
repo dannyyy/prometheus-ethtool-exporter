@@ -268,18 +268,29 @@ class EthtoolCollector:
             # drop empty lines and the header
             if not line or line == "NIC statistics:":
                 continue
+            if line.startswith("Tx Queue#:"):
+                (spliced := line.split(": ", 1))
+                in_tx_queue = True
+                in_rx_queue = False
+                tx_queue_num = spliced[1]
             if line.startswith("Rx Queue#:"):
                 (spliced := line.split(": ", 1))
-                rx_queue = spliced[1]
+                in_rx_queue = True
+                in_tx_queue = False
+                rx_queue_num = spliced[1]
+                
             try:
                 if not (key_val := self._parse_key_value_line(line)):
                     continue
 
                 key, value = key_val
                 key = key.strip()
-                if rx_queue:
+                if in_tx_queue:
                     # Append the tx queue number to the key if exists.
-                    key = f"{key} {rx_queue}"
+                    key = f"{key} tx {tx_queue_num}"
+                if in_rx_queue:
+                    # Append the rx queue number to the key if exists.
+                    key = f"{key} rx {rx_queue_num}"
                 value = float(value.strip())
             except ValueError:
                 self.logger.warning(f'Failed parsing "{line}"')
