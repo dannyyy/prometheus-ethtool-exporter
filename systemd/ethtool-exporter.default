@@ -1,0 +1,2 @@
+# Deploy to /etc/default/ethtool-exporter
+OPTIONS="-f /var/lib/prometheus/node-exporter/ethtool-exporter.prom"

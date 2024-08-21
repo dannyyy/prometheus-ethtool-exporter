@@ -1,0 +1,17 @@
+# Deploy to /etc/systemd/system/ethtool-exporter.service
+[Unit]
+Description=Ethtool Exporter for Prometheus
+Documentation=https://github.com/Showmax/prometheus-ethtool-exporter
+After=network.target
+
+[Service]
+User=root
+Group=root
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/etc/default/ethtool-exporter
+ExecStart=/usr/bin/python3 /usr/local/bin/ethtool-exporter.py $OPTIONS
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
