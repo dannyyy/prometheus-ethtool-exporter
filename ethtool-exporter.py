@@ -279,7 +279,7 @@ class EthtoolCollector:
                 key = key.strip()
                 if rx_queue:
                     # Append the tx queue number to the key if exists.
-                    key = f"{key} {tx_queue}"
+                    key = f"{key} {rx_queue}"
                 value = float(value.strip())
             except ValueError:
                 self.logger.warning(f'Failed parsing "{line}"')
