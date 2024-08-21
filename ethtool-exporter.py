@@ -287,10 +287,10 @@ class EthtoolCollector:
                 key = key.strip()
                 if in_tx_queue:
                     # Append the tx queue number to the key if exists.
-                    key = f"{key} tx {tx_queue_num}"
+                    key = f"{key} {tx_queue_num}"
                 if in_rx_queue:
                     # Append the rx queue number to the key if exists.
-                    key = f"{key} rx {rx_queue_num}"
+                    key = f"{key} {rx_queue_num}"
                 value = float(value.strip())
             except ValueError:
                 self.logger.warning(f'Failed parsing "{line}"')
