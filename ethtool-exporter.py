@@ -268,16 +268,16 @@ class EthtoolCollector:
             # drop empty lines and the header
             if not line or line == "NIC statistics:":
                 continue
-            if line.startswith("Tx Queue#:"):
+            if line.startswith("Rx Queue#:"):
                 (spliced := line.split(": ", 1))
-                tx_queue = spliced[1]
+                rx_queue = spliced[1]
             try:
                 if not (key_val := self._parse_key_value_line(line)):
                     continue
 
                 key, value = key_val
                 key = key.strip()
-                if tx_queue:
+                if rx_queue:
                     # Append the tx queue number to the key if exists.
                     key = f"{key} {tx_queue}"
                 value = float(value.strip())
