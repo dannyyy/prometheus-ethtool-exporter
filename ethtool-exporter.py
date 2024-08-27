@@ -265,6 +265,8 @@ class EthtoolCollector:
         key_set = set()
         for line in data.decode("utf-8").splitlines():
             line = line.strip()
+            in_tx_queue = False
+            in_rx_queue = False
             # drop empty lines and the header
             if not line or line == "NIC statistics:":
                 continue
