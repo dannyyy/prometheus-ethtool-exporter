@@ -1,2 +1,2 @@
 # Deploy to /etc/default/ethtool-exporter
-OPTIONS="-f /var/lib/prometheus/node-exporter/ethtool-exporter.prom"
+OPTIONS="-f /root/scripts/ethtool-exporter/ethtool-exporter.prom -p 9100 -L 172.16.2.11 -q -I \"^enp.+\""
